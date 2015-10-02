@@ -1,0 +1,172 @@
+@import url(https://fonts.googleapis.com/css?family=Black+Ops+One);
+
+body{
+    margin:0px;
+}
+
+.floor {
+    overflow: hidden;
+    background: url(../images/court.jpg);
+    position: relative;
+    width: 500px;
+    height: 305px;
+    background-size: 102% 100%;
+    background-position-x: -10px;
+    background-repeat: no-repeat;
+    background-position-y: -10px;
+}
+
+.team {
+    width: 100%;
+    max-width: 50%;
+    float: left;
+}
+
+.ball {
+    width: 15px;
+    height: 15px;
+    border-radius: 100px;
+    background: orange;
+    border: 1px solid #222;
+    position: absolute;
+    bottom: 0px;
+    min-height:10px;
+    min-width:10px;
+    max-height:25px;
+    max-width:25px;
+}
+
+.player {
+    width: 20px;
+    height: 20px;
+    border-radius: 100px;
+    background: blue;
+    position: absolute;
+    bottom: 0px;
+    text-align: center;
+    line-height: 22px;
+    font-size: 11px;
+    color: #fff;
+    
+}
+
+.player.away {
+    background: red;
+}
+
+.player.ball {
+    width: 15px;
+    height: 15px;
+    border-radius: 100px;
+    background: orange;
+    border: 1px solid #222;
+    position: absolute;
+    bottom: 0px;
+    z-index: 20;
+}
+
+.button {
+    padding: 10px;
+    background: red;
+    color: #fff;
+    margin: 2px;
+    float: left;
+    cursor: pointer;
+}
+
+.game-controls {
+    width: 100%;
+    overflow: hidden;
+    background: #f3f3f3;
+    padding:0px;
+}
+
+.game-controls p{
+    clear:both;
+    margin-left:20px;
+    margin-bottom: 20px;
+}
+
+.game-controls .block {
+    float: left;
+    margin: 20px;
+}
+
+.game-controls .title {
+    width: 100%;
+    text-align: center;
+    font-weight: 900;
+}
+
+.main-container {
+    clear: both;
+    padding:20px;
+}
+
+.infobar {
+    position: relative;
+    z-index: 1;
+    padding: 5px;
+    background: rgba(0,0,0,0.65);
+    width: 100px;
+    color: #fff;
+    right: -10px;
+    top: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    font-size: 12px;
+    overflow: hidden;
+}
+
+.infobar{
+    display:none;
+}
+
+.infobar span {
+    display: block;
+    float: left;
+    line-height: 14px;
+    font-family: sans-serif;
+}
+
+.infobar span.number {
+    clear: both;
+    margin-right:5px;
+}
+
+.infobar span.position{
+    clear:both;
+}
+
+.balldata{
+    display:none;
+}
+
+.team.home{
+    display:none;
+}
+
+.team.away{
+    display:none;
+}
+
+.timeleft{
+    display:none;
+}
+
+.shotclock{
+    font-family: 'Black Ops One', cursive;
+}
+
+.quarter{
+    font-family: 'Black Ops One', cursive;
+}
+
+.gameData {
+    position: relative;
+}
+
+.quarter:before{
+    content:"Q: ";
+}
