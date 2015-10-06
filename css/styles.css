@@ -139,21 +139,17 @@ body{
     clear:both;
 }
 
-.balldata{
-    display:none;
+.gameData {
+    position: relative;
+    width: 200px;
+    float: left;
 }
 
-.team.home{
-    display:none;
+.balldata {
+    width: 200px;
+    float: left;
 }
 
-.team.away{
-    display:none;
-}
-
-.timeleft{
-    display:none;
-}
 
 .shotclock{
     font-family: 'Black Ops One', cursive;

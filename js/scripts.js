@@ -7,7 +7,7 @@ $(document).ready(function() {
     var GAME_ID = 41400231;
     var EVENT_ID = 1;
     var TOTAL_MOMENTS = 0; /// Set to total moments after JSON complete
-    var CURRENT_MOMENT = 0;
+    var CURRENT_MOMENT = 0; /// loop counter
     var RATE = 50;
     var TEAMS_LOADED = false;
     var SHOT_CLOCK = 0;
