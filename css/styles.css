@@ -166,3 +166,7 @@ body{
 .quarter:before{
     content:"Q: ";
 }
+
+.floor div[class*="zone"]{
+    position: absolute;
+}

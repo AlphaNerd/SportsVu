@@ -8,7 +8,7 @@ $(document).ready(function() {
     var EVENT_ID = 1;
     var TOTAL_MOMENTS = 0; /// Set to total moments after JSON complete
     var CURRENT_MOMENT = 0; /// loop counter
-    var RATE = 50;
+    var RATE = 40;
     var TEAMS_LOADED = false;
     var SHOT_CLOCK = 0;
     var TIME_LEFT = 0;
@@ -91,7 +91,7 @@ $(document).ready(function() {
             var player = team.players[i];
 
             /// add player to floor
-            $(".floor").append("<div class='player " + loc + "' player='" + player.playerid + "'>"+player.jersey+"<div class='infobar'><span class='id'>id:"+player.playerid+"</span><span class='number'>#"+player.jersey+" </span><span class='name'>"+player.firstname+" "+player.lastname+"</span><span class='position'>"+player.position+"</span></div></div>");
+            $(".floor").append("<div class='player " + loc + "' player='" + player.playerid + "'>" + player.jersey + "<div class='infobar'><span class='id'>id:" + player.playerid + "</span><span class='number'>#" + player.jersey + " </span><span class='name'>" + player.firstname + " " + player.lastname + "</span><span class='position'>" + player.position + "</span></div></div>");
 
             /// add player to team list
             $("." + loc + " .teamPlayers").append("<li class='playerlist' player='" + player.playerid.toString() + "'>" + player.firstname + " " + player.lastname + "</li>");
@@ -121,15 +121,29 @@ $(document).ready(function() {
                 /////// Update ball on stage ///////
                 $(".ball").css("left", ballx * 5);
                 $(".ball").css("top", bally * 5);
-                $(".ball").css("width",ballz*2);
-                $(".ball").css("height",ballz*2);
+                $(".ball").css("width", ballz * 2);
+                $(".ball").css("height", ballz * 2);
 
                 for (j = 1; j < 11; j++) {
                     var player = moments[CURRENT_MOMENT][5][j];
                     var p1 = $(".floor").find("div[player='" + player[1] + "']");
-                    p1.css("left", player[2] * 5);
-                    p1.css("top", player[3] * 5);
+                    p1.css("left", player[2] * 4.85);
+                    p1.css("top", player[3] * 4.85);
                 }
+                $(".floor .zone1 polygon").attr("points",
+                    moments[CURRENT_MOMENT][5][1][2] * 5 + " " + moments[CURRENT_MOMENT][5][1][3] * 5 + "," +
+                    moments[CURRENT_MOMENT][5][2][2] * 5 + " " + moments[CURRENT_MOMENT][5][2][3] * 5 + "," +
+                    moments[CURRENT_MOMENT][5][3][2] * 5 + " " + moments[CURRENT_MOMENT][5][3][3] * 5 + "," +
+                    moments[CURRENT_MOMENT][5][4][2] * 5 + " " + moments[CURRENT_MOMENT][5][4][3] * 5 + "," +
+                    moments[CURRENT_MOMENT][5][5][2] * 5 + " " + moments[CURRENT_MOMENT][5][5][3] * 5
+                );
+                $(".floor .zone2 polygon").attr("points",
+                    moments[CURRENT_MOMENT][5][6][2] * 5 + " " + moments[CURRENT_MOMENT][5][6][3] * 5 + "," +
+                    moments[CURRENT_MOMENT][5][7][2] * 5 + " " + moments[CURRENT_MOMENT][5][7][3] * 5 + "," +
+                    moments[CURRENT_MOMENT][5][8][2] * 5 + " " + moments[CURRENT_MOMENT][5][8][3] * 5 + "," +
+                    moments[CURRENT_MOMENT][5][9][2] * 5 + " " + moments[CURRENT_MOMENT][5][9][3] * 5 + "," +
+                    moments[CURRENT_MOMENT][5][10][2] * 5 + " " + moments[CURRENT_MOMENT][5][10][3] * 5
+                );
             } else if (CURRENT_MOMENT >= TOTAL_MOMENTS) {
                 CURRENT_MOMENT = 0;
             } else {
