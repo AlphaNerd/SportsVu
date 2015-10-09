@@ -15,6 +15,7 @@ $(document).ready(function() {
     var QUARTER = 0;
     var home, away, moments;
     var gameLoop;
+    var PLAYER_SET = [];
 
     getGameData();
 
@@ -127,23 +128,25 @@ $(document).ready(function() {
                 for (j = 1; j < 11; j++) {
                     var player = moments[CURRENT_MOMENT][5][j];
                     var p1 = $(".floor").find("div[player='" + player[1] + "']");
-                    p1.css("left", player[2] * 4.85);
-                    p1.css("top", player[3] * 4.85);
+                    p1.css("left", player[2] * 5);
+                    p1.css("top", player[3] * 5);
+                    // PLAYER_SET.push(player[1]);
                 }
-                $(".floor .zone1 polygon").attr("points",
-                    moments[CURRENT_MOMENT][5][1][2] * 5 + " " + moments[CURRENT_MOMENT][5][1][3] * 5 + "," +
-                    moments[CURRENT_MOMENT][5][2][2] * 5 + " " + moments[CURRENT_MOMENT][5][2][3] * 5 + "," +
-                    moments[CURRENT_MOMENT][5][3][2] * 5 + " " + moments[CURRENT_MOMENT][5][3][3] * 5 + "," +
-                    moments[CURRENT_MOMENT][5][4][2] * 5 + " " + moments[CURRENT_MOMENT][5][4][3] * 5 + "," +
-                    moments[CURRENT_MOMENT][5][5][2] * 5 + " " + moments[CURRENT_MOMENT][5][5][3] * 5
-                );
-                $(".floor .zone2 polygon").attr("points",
-                    moments[CURRENT_MOMENT][5][6][2] * 5 + " " + moments[CURRENT_MOMENT][5][6][3] * 5 + "," +
-                    moments[CURRENT_MOMENT][5][7][2] * 5 + " " + moments[CURRENT_MOMENT][5][7][3] * 5 + "," +
-                    moments[CURRENT_MOMENT][5][8][2] * 5 + " " + moments[CURRENT_MOMENT][5][8][3] * 5 + "," +
-                    moments[CURRENT_MOMENT][5][9][2] * 5 + " " + moments[CURRENT_MOMENT][5][9][3] * 5 + "," +
-                    moments[CURRENT_MOMENT][5][10][2] * 5 + " " + moments[CURRENT_MOMENT][5][10][3] * 5
-                );
+
+                var COMBINATOINS = k_combinations(PLAYER_SET, 2);
+                console.log(COMBINATOINS);
+
+                // moments[CURRENT_MOMENT][5][1][2]
+                //                         ^  ^  ^
+                //                   Players  Ply  Pos
+
+                // $(".floor .zone1 polygon").attr("points",
+                //     moments[CURRENT_MOMENT][5][1][2] * 5 + " " + moments[CURRENT_MOMENT][5][1][3] * 5 + "," +
+                //     moments[CURRENT_MOMENT][5][2][2] * 5 + " " + moments[CURRENT_MOMENT][5][2][3] * 5 + "," +
+                //     moments[CURRENT_MOMENT][5][3][2] * 5 + " " + moments[CURRENT_MOMENT][5][3][3] * 5
+                // );
+
+
             } else if (CURRENT_MOMENT >= TOTAL_MOMENTS) {
                 CURRENT_MOMENT = 0;
             } else {
@@ -159,21 +162,25 @@ $(document).ready(function() {
     $(".game-controls .game-id .next").on("click", function() {
         GAME_ID += 1;
         clearInterval(gameLoop);
+        clearTeamLists();
         getGameData();
     });
     $(".game-controls .game-id .prev").on("click", function() {
         GAME_ID -= 1;
         clearInterval(gameLoop);
+        clearTeamLists();
         getGameData();
     });
     $(".game-controls .event-id .next").on("click", function() {
         EVENT_ID += 1;
         clearInterval(gameLoop);
+        clearTeamLists();
         getGameData();
     });
     $(".game-controls .event-id .prev").on("click", function() {
         EVENT_ID -= 1;
         clearInterval(gameLoop);
+        clearTeamLists();
         getGameData();
     });
 
@@ -185,5 +192,56 @@ $(document).ready(function() {
         clearInterval(gameLoop);
         getGameData();
     });
+
+    function clearTeamLists() {
+        $(".teamPlayers").html("");
+    }
+
+
+    function k_combinations(set, k) {
+        var i, j, combs, head, tailcombs;
+
+        if (k > set.length || k <= 0) {
+            return [];
+        }
+
+        if (k == set.length) {
+            return [set];
+        }
+
+        if (k == 1) {
+            combs = [];
+            for (i = 0; i < set.length; i++) {
+                combs.push([set[i]]);
+            }
+            return combs;
+        }
+
+        // Assert {1 < k < set.length}
+
+        combs = [];
+        for (i = 0; i < set.length - k + 1; i++) {
+            head = set.slice(i, i + 1);
+            tailcombs = k_combinations(set.slice(i + 1), k - 1);
+            for (j = 0; j < tailcombs.length; j++) {
+                combs.push(head.concat(tailcombs[j]));
+            }
+        }
+        return combs;
+    }
+
+    function combinations(set) {
+        var k, i, combs, k_combs;
+        combs = [];
+
+        // Calculate all non-empty k-combinations
+        for (k = 1; k <= set.length; k++) {
+            k_combs = k_combinations(set, k);
+            for (i = 0; i < k_combs.length; i++) {
+                combs.push(k_combs[i]);
+            }
+        }
+        return combs;
+    }
 
 });
