@@ -130,12 +130,9 @@ $(document).ready(function() {
                     var p1 = $(".floor").find("div[player='" + player[1] + "']");
                     p1.css("left", player[2] * 5);
                     p1.css("top", player[3] * 5);
-                    // PLAYER_SET.push(player[1]);
+                    PLAYER_SET[j-1] = player[1];
                 }
-
-                var COMBINATOINS = k_combinations(PLAYER_SET, 2);
-                console.log(COMBINATOINS);
-
+                console.log(PLAYER_SET);
                 // moments[CURRENT_MOMENT][5][1][2]
                 //                         ^  ^  ^
                 //                   Players  Ply  Pos
@@ -146,6 +143,9 @@ $(document).ready(function() {
                 //     moments[CURRENT_MOMENT][5][3][2] * 5 + " " + moments[CURRENT_MOMENT][5][3][3] * 5
                 // );
 
+                var COMBINATOINS = k_combinations(PLAYER_SET, 2);
+                
+                console.log(COMBINATOINS);
 
             } else if (CURRENT_MOMENT >= TOTAL_MOMENTS) {
                 CURRENT_MOMENT = 0;
@@ -154,6 +154,7 @@ $(document).ready(function() {
             }
             CURRENT_MOMENT += 1;
         }, RATE);
+
         $(".player").on("click", function() {
             $(this).find(".infobar").toggle();
         });
