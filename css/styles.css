@@ -170,3 +170,6 @@ body{
 .floor div[class*="zone"]{
     position: absolute;
 }
+.floor svg {
+    position: absolute;
+}

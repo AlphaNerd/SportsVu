@@ -16,6 +16,7 @@ $(document).ready(function() {
     var home, away, moments;
     var gameLoop;
     var PLAYER_SET = [];
+    var RELATIONS = [];
 
     getGameData();
 
@@ -76,6 +77,17 @@ $(document).ready(function() {
             ///// Update the DOM //////
             $(".gamedate").html("Game Date: " + obj.gamedate);
             $(".gameid").html("Game ID: " + obj.gameid);
+
+            for (j = 0; j < 11; j++) {
+                var player = moments[CURRENT_MOMENT][5][j];
+                PLAYER_SET[j] = player[1];
+            }
+
+            // Calculate all possible relations between players & players + players & ball
+            console.log(PLAYER_SET);
+            RELATIONS = k_combinations(PLAYER_SET, 2);
+            console.log(RELATIONS);
+
             parseTeam(home, "home", moments);
             parseTeam(away, "away", moments);
             parseGame(moments);
@@ -113,39 +125,30 @@ $(document).ready(function() {
                 $(".timeleft").html(TIME_LEFT);
                 $(".quarter").html(QUARTER);
 
-                var ballx = moments[CURRENT_MOMENT][5][0][2];
-                var bally = moments[CURRENT_MOMENT][5][0][3];
-                var ballz = moments[CURRENT_MOMENT][5][0][4];
-                $(".balldata").find(".posx").html("X: " + ballx);
-                $(".balldata").find(".posy").html("Y: " + bally);
-                $(".balldata").find(".posz").html("Z: " + ballz);
-                /////// Update ball on stage ///////
-                $(".ball").css("left", ballx * 5);
-                $(".ball").css("top", bally * 5);
-                $(".ball").css("width", ballz * 2);
-                $(".ball").css("height", ballz * 2);
+                // var ballx = moments[CURRENT_MOMENT][5][0][2];
+                // var bally = moments[CURRENT_MOMENT][5][0][3];
+                // var ballz = moments[CURRENT_MOMENT][5][0][4];
+                // $(".balldata").find(".posx").html("X: " + ballx);
+                // $(".balldata").find(".posy").html("Y: " + bally);
+                // $(".balldata").find(".posz").html("Z: " + ballz);
 
-                for (j = 1; j < 11; j++) {
+                for (j = 0; j < 11; j++) {
                     var player = moments[CURRENT_MOMENT][5][j];
                     var p1 = $(".floor").find("div[player='" + player[1] + "']");
                     p1.css("left", player[2] * 5);
                     p1.css("top", player[3] * 5);
-                    PLAYER_SET[j-1] = player[1];
+
                 }
-                console.log(PLAYER_SET);
-                // moments[CURRENT_MOMENT][5][1][2]
-                //                         ^  ^  ^
-                //                   Players  Ply  Pos
-
-                // $(".floor .zone1 polygon").attr("points",
-                //     moments[CURRENT_MOMENT][5][1][2] * 5 + " " + moments[CURRENT_MOMENT][5][1][3] * 5 + "," +
-                //     moments[CURRENT_MOMENT][5][2][2] * 5 + " " + moments[CURRENT_MOMENT][5][2][3] * 5 + "," +
-                //     moments[CURRENT_MOMENT][5][3][2] * 5 + " " + moments[CURRENT_MOMENT][5][3][3] * 5
-                // );
-
-                var COMBINATOINS = k_combinations(PLAYER_SET, 2);
-                
-                console.log(COMBINATOINS);
+                // for (k = 0;k<RELATIONS.length;k++){
+                //     var set = RELATIONS[k];
+                //     var p1 = set[0];
+                //     var p2 = set[1];
+                //     var p1x = $(".floor").find("div[player='" + p1 + "']").css("left");
+                //     var p1y = $(".floor").find("div[player='" + p1 + "']").css("top");
+                //     var p2x = $(".floor").find("div[player='" + p2 + "']").css("left");
+                //     var p2y = $(".floor").find("div[player='" + p2 + "']").css("top");
+                //     $(".floor").append('<svg height="305" width="500"><line x1="'+p1x+'" y1="'+p1y+'" x2="'+p2x+'" y2="'+p2y+'" style="stroke:rgb(255,0,0);stroke-width:2" /></svg>');
+                // }
 
             } else if (CURRENT_MOMENT >= TOTAL_MOMENTS) {
                 CURRENT_MOMENT = 0;
